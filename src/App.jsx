@@ -3,7 +3,6 @@ import { MonitorPlay, Camera, MessageCircle, Video, BookOpen, User, ExternalLink
 import { FaYoutube, FaInstagram } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
-import ReactPlayer from 'react-player';
 import heroImage from './assets/images/fathimasshiril.jpeg';
 import logoImage from './assets/logo.jpeg';
 
@@ -87,6 +86,8 @@ const App = () => {
             window.open(`https://www.youtube.com/shorts/${video.id}`, '_blank');
         };
 
+        const embedUrl = `https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${video.id}&modestbranding=1&rel=0&enablejsapi=1`;
+
         return (
             <motion.div
                 initial={{ opacity: 0, y: 40 }}
@@ -117,17 +118,13 @@ const App = () => {
 
                     <div className="w-full h-full relative z-10">
                         {isHovered && !showButton && (
-                            <div className="absolute inset-0 bg-black scale-105 pointer-events-none">
-                                <ReactPlayer
-                                    url={`https://www.youtube.com/shorts/${video.id}`}
-                                    playing={true}
-                                    muted={false}
-                                    width="100%"
-                                    height="100%"
-                                    style={{ pointerEvents: 'none' }}
-                                    config={{ youtube: { playerVars: { controls: 0, modestbranding: 1, rel: 0 } } }}
-                                />
-                            </div>
+                            <iframe
+                                className="w-full h-full object-cover scale-105 pointer-events-none absolute inset-0 bg-black"
+                                src={embedUrl}
+                                title={video.title}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            ></iframe>
                         )}
                         <AnimatePresence>
                             {showButton && (
