@@ -86,7 +86,7 @@ const App = () => {
             window.open(`https://www.youtube.com/shorts/${video.id}`, '_blank');
         };
 
-        const embedUrl = `https://www.youtube.com/embed/${video.id}?autoplay=1&mute=0&controls=0&loop=1&playlist=${video.id}&modestbranding=1&rel=0&enablejsapi=1`;
+        const embedUrl = `https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${video.id}&modestbranding=1&rel=0&enablejsapi=1`;
 
         return (
             <motion.div
@@ -101,54 +101,52 @@ const App = () => {
                 onClick={() => setIsHovered(true)}
             >
                 <Tilt tiltMaxAngleX={15} tiltMaxAngleY={15} perspective={1000} transitionSpeed={2000} scale={1.05} glareEnable={true} glareMaxOpacity={0.4} glarePosition="bottom" className="relative aspect-[9/16] rounded-[2.5rem] overflow-hidden mb-5 shadow-xl hover:shadow-2xl transition-all duration-500 bg-gray-100 border-2 border-transparent group-hover:border-teal-400">
-                    {isHovered ? (
-                        <div className="w-full h-full relative">
+                    <div className="absolute inset-0 z-0">
+                        <img
+                            src={video.thumbnail}
+                            alt={video.title}
+                            className={`w-full h-full object-cover transition-transform duration-700 ${isHovered ? 'scale-105' : ''} group-hover:scale-105`}
+                            onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&q=80&w=800' }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent"></div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <motion.div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center text-teal-600 shadow-2xl scale-90 group-hover:scale-100 transition-transform">
+                                <Play size={28} fill="currentColor" />
+                            </motion.div>
+                        </div>
+                    </div>
+
+                    <div className="w-full h-full relative z-10">
+                        {isHovered && !showButton && (
                             <iframe
-                                className="w-full h-full object-cover scale-105 pointer-events-none"
+                                className="w-full h-full object-cover scale-105 pointer-events-none absolute inset-0 bg-black"
                                 src={embedUrl}
                                 title={video.title}
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             ></iframe>
-                            <AnimatePresence>
-                                {showButton && (
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                        className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-6"
-                                    >
-                                        <button
-                                            onClick={handleWatchMore}
-                                            className="bg-white text-gray-900 px-6 py-4 rounded-2xl font-black text-sm flex items-center space-x-2 shadow-2xl hover:bg-teal-500 hover:text-white transition-all transform hover:scale-105"
-                                        >
-                                            <span>WATCH ON YOUTUBE</span>
-                                            <ArrowUpRight size={18} />
-                                        </button>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    ) : (
-                        <>
-                            <img
-                                src={video.thumbnail}
-                                alt={video.title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&q=80&w=800' }}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent"></div>
-                            <div className="absolute inset-0 flex items-center justify-center">
+                        )}
+                        <AnimatePresence>
+                            {showButton && (
                                 <motion.div
-                                    whileHover={{ scale: 1.1 }}
-                                    className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center text-teal-600 shadow-2xl scale-90 group-hover:scale-100 transition-transform"
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-6"
                                 >
-                                    <Play size={28} fill="currentColor" />
+                                    <button
+                                        onClick={handleWatchMore}
+                                        className="bg-white text-gray-900 px-6 py-4 rounded-2xl font-black text-sm flex items-center space-x-2 shadow-2xl hover:bg-teal-500 hover:text-white transition-all transform hover:scale-105"
+                                    >
+                                        <span>WATCH ON YOUTUBE</span>
+                                        <ArrowUpRight size={18} />
+                                    </button>
                                 </motion.div>
-                            </div>
-                        </>
-                    )}
-                    <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/10">
+                            )}
+                        </AnimatePresence>
+                    </div>
+
+                    <div className="absolute top-6 left-6 z-20 bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/10">
                         {video.category}
                     </div>
                 </Tilt>
