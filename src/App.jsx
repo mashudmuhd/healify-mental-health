@@ -3,7 +3,7 @@ import { MonitorPlay, Camera, MessageCircle, Video, BookOpen, User, ExternalLink
 import { FaYoutube, FaInstagram } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player';
 import heroImage from './assets/images/fathimasshiril.jpeg';
 import logoImage from './assets/logo.jpeg';
 
