@@ -29,19 +29,19 @@ const App = () => {
     const youtubeVideos = [
         {
             id: 'PtoBX7zhhl4',
-            title: 'Mindfulness Moments',
+            title: 'Healthy Parenting ?',
             category: 'Psychology Tips',
             thumbnail: 'https://img.youtube.com/vi/PtoBX7zhhl4/maxresdefault.jpg',
         },
         {
             id: 'kjDZhcx3tcI',
-            title: 'Self Care Routine',
+            title: 'War Hits Minds Too',
             category: 'Psychology Insights',
             thumbnail: 'https://img.youtube.com/vi/kjDZhcx3tcI/maxresdefault.jpg',
         },
         {
             id: 'Q_YTiE0So3o',
-            title: 'Emotional Well-being',
+            title: 'Overthinking',
             category: 'Therapy Session',
             thumbnail: 'https://img.youtube.com/vi/Q_YTiE0So3o/maxresdefault.jpg',
         },
